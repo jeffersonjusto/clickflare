@@ -1,27 +1,28 @@
 <script>
   (function() {
-    const CLICKFLARE_ENDPOINT = 'https://webeasyhit.com/cf/cv'; // endpoint ClickFlare
-    const PAYOUT = 10; // valor da comissão, ajuste se precisar
+    const CLICKFLARE_ENDPOINT = 'https://webeasyhit.com/cf/cv'; // Endpoint ClickFlare para enviar conversão
+    const PAYOUT = 10; // Ajuste para o valor do payout da sua campanha
 
-    // Função para enviar conversão para ClickFlare
+    // Função para enviar a conversão
     function enviarConversao(clickId) {
       if (!clickId) {
-        console.warn('Nenhum cf_click_id válido para enviar conversão');
+        console.warn('Nenhum cf_click_id válido encontrado para enviar conversão');
         return;
       }
 
-      // Para evitar envios múltiplos no mesmo clique, use um flag no localStorage
-      const conversionFlagKey = 'clickflare_conversion_sent_' + clickId;
-      if (localStorage.getItem(conversionFlagKey)) {
+      // Evita múltiplos envios da mesma conversão para um mesmo clickId
+      const flagConversionEnviada = 'clickflare_conversion_sent_' + clickId;
+      if (localStorage.getItem(flagConversionEnviada)) {
         console.log('Conversão já enviada para clickId:', clickId);
         return;
       }
 
+      // Envia o request para ClickFlare
       fetch(`${CLICKFLARE_ENDPOINT}?click_id=${clickId}&payout=${PAYOUT}`)
         .then(response => response.json())
         .then(data => {
           console.log('Conversão enviada para ClickFlare:', data);
-          localStorage.setItem(conversionFlagKey, 'true'); // marca conversão como enviada
+          localStorage.setItem(flagConversionEnviada, 'true');
         })
         .catch(error => {
           console.error('Erro ao enviar conversão ClickFlare:', error);
@@ -33,15 +34,14 @@
     let clickId = urlParams.get('cf_click_id');
 
     if (clickId) {
-      // Se achou o parâmetro na URL, salva no localStorage para persistência
+      // Se tiver na URL, salva no localStorage para persistir no funil
       localStorage.setItem('cf_click_id', clickId);
     } else {
-      // Se não tem no URL, tenta pegar do localStorage (caso o usuário recarregue a página)
+      // Se não tiver na URL, tenta pegar do localStorage para casos de recarregamento
       clickId = localStorage.getItem('cf_click_id');
     }
 
-    // Envia a conversão
+    // Envia a conversão para ClickFlare
     enviarConversao(clickId);
-
   })();
 </script>
