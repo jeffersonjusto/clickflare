@@ -3,22 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Presell - Confirme Sua Idade</title>
+  <title>Presell</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-    h1 { font-size: 2.5rem; margin-bottom: 20px; }
-    h2 { font-size: 1.5rem; margin-bottom: 40px; }
-    .btn {
-      background-color: #ff0000;
-      color: white;
-      font-size: 1.25rem;
-      padding: 15px 30px;
-      border: none;
+    /* Botão vermelho vibrante com texto responsivo */
+    #botaoPresell {
+      font-size: 18px;
+      padding: 12px 20px;
       border-radius: 8px;
+      background-color: #E63946; /* vermelho vibrante */
+      color: white;
+      text-align: center;
+      display: inline-block;
       cursor: pointer;
       text-decoration: none;
-      display: inline-block;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
     }
+    #botaoPresell:hover {
+      background-color: #d9323e;
+    }
+
+    /* Ajuste para celular */
+    @media (max-width: 480px) {
+      #botaoPresell {
+        font-size: 14px;
+        padding: 10px 16px;
+      }
+  }
   </style>
 </head>
 <body>
@@ -26,25 +37,28 @@
   <h1>AGUARDE UM MOMENTO</h1>
   <h2>POR FAVOR, CONFIRME A SUA IDADE! 👇👇👇👇👇👇</h2>
 
-  <a id="btn-confirm" href="#" class="btn">EU TENHO MAIS DE 35</a>
+  <!-- Botão que leva para a VSL -->
+  <a href="vsl.html" id="botaoPresell">EU TENHO MAIS DE 35</a>
 
   <script>
-    // Captura cf_click_id da URL e repassa para o link da VSL
-    function getParam(name) {
+    // Script para pegar cf_click_id da URL e colocar no link do botão
+    document.addEventListener("DOMContentLoaded", function () {
+      const botao = document.getElementById("botaoPresell");
+      if (!botao) return;
+
       const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name);
-    }
+      const cf_click_id = urlParams.get("cf_click_id");
 
-    const clickId = getParam('cf_click_id') || getParam('click_id') || '';
-
-    const btn = document.getElementById('btn-confirm');
-    if (btn) {
-      let vslUrl = 'vsl.html';
-      if (clickId) {
-        vslUrl += '?cf_click_id=' + encodeURIComponent(clickId);
+      if (cf_click_id) {
+        let href = botao.href;
+        if (href.indexOf("?") === -1) {
+          href += `?cf_click_id=${cf_click_id}`;
+        } else {
+          href += `&cf_click_id=${cf_click_id}`;
+        }
+        botao.href = href;
       }
-      btn.href = vslUrl;
-    }
+    });
   </script>
 
 </body>
