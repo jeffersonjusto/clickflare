@@ -1,36 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aguarde um momento</title>
-<style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background: #fff; }
-    h1 { color: #000; font-size: 28px; }
-    h2 { color: #444; font-size: 20px; margin-bottom: 30px; }
-    a {
-        display: inline-block;
-        background-color: red;
-        color: white;
-        padding: 15px 25px;
-        text-decoration: none;
-        font-weight: bold;
-        border-radius: 5px;
-        font-size: 18px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Presell - Confirme Sua Idade</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+    h1 { font-size: 2.5rem; margin-bottom: 20px; }
+    h2 { font-size: 1.5rem; margin-bottom: 40px; }
+    .btn {
+      background-color: #ff0000;
+      color: white;
+      font-size: 1.25rem;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
     }
-</style>
+  </style>
 </head>
 <body>
 
-<h1>AGUARDE UM MOMENTO</h1>
-<h2>POR FAVOR, CONFIRME A SUA IDADE! 👇👇👇👇👇👇</h2>
-<a id="btn" href="#">EU TENHO MAIS DE 35</a>
+  <h1>AGUARDE UM MOMENTO</h1>
+  <h2>POR FAVOR, CONFIRME A SUA IDADE! 👇👇👇👇👇👇</h2>
 
-<script>
-    const params = new URLSearchParams(window.location.search);
-    const click_id = params.get('click_id') || '';
-    document.getElementById("btn").href = "vsl.html?click_id=" + encodeURIComponent(click_id);
-</script>
+  <a id="btn-confirm" href="#" class="btn">EU TENHO MAIS DE 35</a>
+
+  <script>
+    // Captura cf_click_id da URL e repassa para o link da VSL
+    function getParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    const clickId = getParam('cf_click_id') || getParam('click_id') || '';
+
+    const btn = document.getElementById('btn-confirm');
+    if (btn) {
+      let vslUrl = 'vsl.html';
+      if (clickId) {
+        vslUrl += '?cf_click_id=' + encodeURIComponent(clickId);
+      }
+      btn.href = vslUrl;
+    }
+  </script>
 
 </body>
 </html>
