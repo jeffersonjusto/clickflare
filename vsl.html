@@ -1,33 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VSL</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 450px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    vturb-smartplayer {
+      display: block;
+      margin: 0 auto 2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+    #btn-buy {
+      display: none;
+      background-color: #e63946; /* vermelho vibrante */
+      color: white;
+      font-weight: bold;
+      font-size: 1.5rem;
+      padding: 1rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    #btn-buy:hover {
+      background-color: #d62828;
+    }
+  </style>
+</head>
 <body>
-  <div style="text-align:center; max-width: 400px; margin: auto;">
-    <!-- Player VTurb - só o player, sem texto extra -->
-    <vturb-smartplayer id="vid-685ee337372ee5f4dfcac9f7" style="width:100%; max-width:400px; margin: 0 auto; display: block;"></vturb-smartplayer>
-  </div>
+  <vturb-smartplayer id="vid-685ee337372ee5f4dfcac9f7"></vturb-smartplayer>
 
-  <!-- Botão que vai aparecer só depois de 222 segundos -->
-  <div style="text-align:center; margin-top: 20px;">
-    <a id="botao-compra" href="https://pay.kiwify.com.br/Dn3uXPo" 
-       target="_blank" 
-       style="display:none; background-color:#ff2b2b; color:#fff; padding:15px 30px; font-weight:bold; border-radius:8px; text-decoration:none; font-size:1.3rem;">
-       QUERO MEU PÊNIS MAIOR
-    </a>
-  </div>
+  <a id="btn-buy" href="https://pay.kiwify.com.br/Dn3uXPo" target="_blank">QUERO MEU PÊNIS MAIOR</a>
 
-  <!-- Script VTurb player (deve ficar antes do script abaixo) -->
   <script type="text/javascript">
-    var s=document.createElement("script");
-    s.src="https://scripts.converteai.net/01e6a0fa-efaa-442b-92e6-6c66ff803f00/players/685ee337372ee5f4dfcac9f7/v4/player.js";
-    s.async=!0;
-    document.head.appendChild(s);
-  </script>
+    // Carrega o player VTurb
+    (function() {
+      var s = document.createElement("script");
+      s.src = "https://scripts.converteai.net/01e6a0fa-efaa-442b-92e6-6c66ff803f00/players/685ee337372ee5f4dfcac9f7/v4/player.js";
+      s.async = true;
+      document.head.appendChild(s);
+    })();
 
-  <script>
-    // Faz o botão aparecer só depois de 222 segundos (3 minutos e 42 segundos)
-    document.addEventListener("DOMContentLoaded", function() {
-      setTimeout(function(){
-        const botao = document.getElementById('botao-compra');
-        if(botao) botao.style.display = 'inline-block';
-      }, 222000); // 222.000 milissegundos = 222 segundos
+    document.addEventListener("DOMContentLoaded", function () {
+      // delay em segundos (222 segundos = 3min42s)
+      const delay = 222 * 1000;
+
+      // captura o botão
+      const btnBuy = document.getElementById("btn-buy");
+
+      // captura cf_click_id da URL para repassar para checkout
+      const urlParams = new URLSearchParams(window.location.search);
+      const cf_click_id = urlParams.get('cf_click_id');
+
+      setTimeout(() => {
+        if (cf_click_id) {
+          // adiciona cf_click_id na URL do checkout
+          let href = btnBuy.href;
+          if (href.indexOf('?') === -1) {
+            href += `?cf_click_id=${cf_click_id}`;
+          } else {
+            href += `&cf_click_id=${cf_click_id}`;
+          }
+          btnBuy.href = href;
+        }
+        // mostra o botão após o delay
+        btnBuy.style.display = "inline-block";
+      }, delay);
     });
   </script>
 </body>
+</html>
