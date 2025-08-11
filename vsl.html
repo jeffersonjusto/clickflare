@@ -3,55 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VSL - Descubra o Segredo</title>
+  <title>VSL</title>
+
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 40px 20px; }
-    .btn-buy {
-      background-color: #ff0000;
-      color: white;
-      font-size: 1.5rem;
-      padding: 15px 40px;
-      border: none;
+    /* Botão vermelho vibrante */
+    #compra {
+      display: none; /* começa escondido */
+      font-size: 18px;
+      padding: 12px 20px;
       border-radius: 8px;
+      background-color: #E63946;
+      color: white;
+      text-align: center;
       cursor: pointer;
       text-decoration: none;
+      font-weight: bold;
+      margin-top: 20px;
       display: inline-block;
-      margin-top: 30px;
+      transition: background-color 0.3s ease;
+    }
+    #compra:hover {
+      background-color: #d9323e;
+    }
+
+    @media (max-width: 480px) {
+      #compra {
+        font-size: 14px;
+        padding: 10px 16px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <vturb-smartplayer id="vid-685ee337372ee5f4dfcac9f7" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
-  <script type="text/javascript"> 
-    var s=document.createElement("script"); 
-    s.src="https://scripts.converteai.net/01e6a0fa-efaa-442b-92e6-6c66ff803f00/players/685ee337372ee5f4dfcac9f7/v4/player.js", 
-    s.async=!0,
-    document.head.appendChild(s); 
-  </script>
+  <h1>Seu Vídeo Aqui</h1>
 
-  <a id="btn-buy" href="https://pay.kiwify.com.br/Dn3uXPo" target="_blank" class="btn-buy">QUERO MEU PÊNIS MAIOR</a>
+  <!-- Player VTurb -->
+  <vturb-smartplayer
+    id="vid-685ee337372ee5f4dfcac9f7"
+    style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"
+  ></vturb-smartplayer>
+  <script
+    type="text/javascript"
+    src="https://scripts.converteai.net/01e6a0fa-efaa-442b-92e6-6c66ff803f00/players/685ee337372ee5f4dfcac9f7/v4/player.js"
+    async
+  ></script>
+
+  <!-- Botão de compra -->
+  <a href="https://pay.kiwify.com.br/Dn3uXPo" id="compra" target="_blank"
+    >QUERO MEU PÊNIS MAIOR</a
+  >
 
   <script>
-    // Pega cf_click_id e adiciona no link do checkout
-    function getParam(name) {
+    document.addEventListener("DOMContentLoaded", function () {
+      const botao = document.getElementById("compra");
+      if (!botao) return;
+
+      // Delay de 222 segundos para mostrar o botão
+      setTimeout(() => {
+        botao.style.display = "inline-block";
+      }, 222000);
+
+      // Pega o cf_click_id da URL e adiciona no link do botão de compra
       const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name);
-    }
+      const cf_click_id =
+        urlParams.get("cf_click_id") || urlParams.get("click_id") || "";
 
-    const clickId = getParam('cf_click_id') || getParam('click_id') || '';
-
-    const btnBuy = document.getElementById('btn-buy');
-    if (btnBuy && clickId) {
-      let href = btnBuy.href;
-      if (href.indexOf('?') === -1) {
-        href += '?cf_click_id=' + encodeURIComponent(clickId);
-      } else {
-        href += '&cf_click_id=' + encodeURIComponent(clickId);
+      if (cf_click_id) {
+        let href = botao.href;
+        if (href.indexOf("?") === -1) {
+          href += `?click_id=${cf_click_id}`;
+        } else {
+          href += `&click_id=${cf_click_id}`;
+        }
+        botao.href = href;
       }
-      btnBuy.href = href;
-    }
+    });
   </script>
-
 </body>
 </html>
