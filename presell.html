@@ -1,68 +1,87 @@
-<style>
-  /* Reset básico e altura 100% */
-  html, body {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-
-  /* Container centralizado */
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;  /* centraliza vertical */
-    align-items: center;      /* centraliza horizontal */
-    height: 100vh;            /* altura 100% da tela */
-    text-align: center;
-    padding: 0 20px;
-  }
-
-  /* Títulos */
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-  h2 {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  /* Botão */
-  a.botao-confirmar {
-    background-color: #ff2b2b;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.3rem;
-    padding: 15px 30px;
-    border-radius: 8px;
-    display: inline-block;
-    transition: background-color 0.3s ease;
-  }
-
-  a.botao-confirmar:hover {
-    background-color: #cc2424;
-  }
-
-  /* Ajuste para telas pequenas */
-  @media (max-width: 480px) {
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pressell - Confirme sua idade</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .container {
+      max-width: 400px;
+    }
     h1 {
-      font-size: 1.8rem;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
     }
     h2 {
-      font-size: 1rem;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
     }
-    a.botao-confirmar {
-      font-size: 1.1rem;
-      padding: 12px 24px;
+    a#btn-confirm {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background-color: #e63946; /* vermelho vibrante */
+      color: white;
+      font-weight: bold;
+      font-size: 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      user-select: none;
     }
-  }
-</style>
-
+    a#btn-confirm:hover {
+      background-color: #d62828;
+    }
+    /* Responsivo */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.2rem;
+      }
+      a#btn-confirm {
+        font-size: 1.3rem;
+        padding: 1rem 1.5rem;
+      }
+    }
+  </style>
+</head>
 <body>
   <div class="container">
     <h1>AGUARDE UM MOMENTO</h1>
     <h2>POR FAVOR, CONFIRME A SUA IDADE ! 👇👇👇👇👇👇</h2>
-    <a href="link-para-vsl.html" class="botao-confirmar">EU TENHO MAIS DE 35</a>
+    <a id="btn-confirm" href="vsl.html">EU TENHO MAIS DE 35</a>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const btn = document.getElementById('btn-confirm');
+      if (!btn) return;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const cf_click_id = urlParams.get('cf_click_id');
+      if (cf_click_id) {
+        let href = btn.href;
+        if (href.indexOf('?') === -1) {
+          href += `?cf_click_id=${cf_click_id}`;
+        } else {
+          href += `&cf_click_id=${cf_click_id}`;
+        }
+        btn.href = href;
+      }
+    });
+  </script>
 </body>
+</html>
