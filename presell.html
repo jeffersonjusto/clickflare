@@ -66,22 +66,22 @@
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const btn = document.getElementById('btn-confirm');
-      if (!btn) return;
+  document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById('btn-confirm');
+    if (!btn) return;
 
-      const urlParams = new URLSearchParams(window.location.search);
-      const cf_click_id = urlParams.get('cf_click_id');
-      if (cf_click_id) {
-        let href = btn.href;
-        if (href.indexOf('?') === -1) {
-          href += `?cf_click_id=${cf_click_id}`;
-        } else {
-          href += `&cf_click_id=${cf_click_id}`;
-        }
-        btn.href = href;
+    const urlParams = new URLSearchParams(window.location.search);
+    const cf_click_id = urlParams.get('cf_click_id');
+    if (cf_click_id) {
+      const baseHref = btn.getAttribute('href'); // pega o href original sem domínio absoluto
+      if (baseHref.indexOf('?') === -1) {
+        btn.href = `${baseHref}?cf_click_id=${cf_click_id}`;
+      } else {
+        btn.href = `${baseHref}&cf_click_id=${cf_click_id}`;
       }
-    });
-  </script>
+    }
+  });
+</script>
+
 </body>
 </html>
