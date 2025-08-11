@@ -3,41 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Obrigado pela sua compra!</title>
+  <title>Obrigado</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-    h1 { font-size: 2.5rem; margin-bottom: 20px; }
-    p { font-size: 1.25rem; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
   </style>
 </head>
 <body>
-
   <h1>OBRIGADO PELA SUA COMPRA!</h1>
-  <p>Sua compra foi concluída com sucesso. Enviamos um E-mail de confirmação e todo material da sua compra.</p>
-
-  <script>
-    // Pega o cf_click_id da URL para enviar o postback ao ClickFlare e Make
-    function getParam(name) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name);
-    }
-
-    const clickId = getParam('cf_click_id') || getParam('click_id') || '';
-
-    if (clickId) {
-      // Enviar conversão para ClickFlare
-      fetch('https://webeasyhit.com/cf/cv?click_id=' + encodeURIComponent(clickId) + '&payout=10')
-        .then(response => response.json())
-        .then(data => console.log('Conversão enviada para ClickFlare:', data))
-        .catch(error => console.error('Erro ao enviar conversão:', error));
-
-      // Se usar Make, faça o mesmo para a URL de webhook do Make aqui:
-      // fetch('URL_DO_SEU_WEBHOOK_DO_MAKE?click_id=' + encodeURIComponent(clickId))
-      //   .then(...)
-    } else {
-      console.warn('Nenhum click_id encontrado na URL da página de obrigado.');
-    }
-  </script>
-
+  <p>
+    Sua compra foi concluída com sucesso. Enviamos um E-mail de confirmação e
+    todo material da sua compra.
+  </p>
 </body>
 </html>
