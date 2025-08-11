@@ -1,42 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Assista ao vídeo</title>
-<style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 20px; background: #fff; }
-    a {
-        display: inline-block;
-        background-color: red;
-        color: white;
-        padding: 15px 25px;
-        text-decoration: none;
-        font-weight: bold;
-        border-radius: 5px;
-        font-size: 18px;
-        margin-top: 20px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VSL - Descubra o Segredo</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px 20px; }
+    .btn-buy {
+      background-color: #ff0000;
+      color: white;
+      font-size: 1.5rem;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 30px;
     }
-</style>
+  </style>
 </head>
 <body>
 
-<!-- Player Vturb -->
-<vturb-smartplayer id="vid-685ee337372ee5f4dfcac9f7" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
-<script type="text/javascript">
-    var s=document.createElement("script");
-    s.src="https://scripts.converteai.net/01e6a0fa-efaa-442b-92e6-6c66ff803f00/players/685ee337372ee5f4dfcac9f7/v4/player.js";
-    s.async=!0;
-    document.head.appendChild(s);
-</script>
+  <vturb-smartplayer id="vid-685ee337372ee5f4dfcac9f7" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
+  <script type="text/javascript"> 
+    var s=document.createElement("script"); 
+    s.src="https://scripts.converteai.net/01e6a0fa-efaa-442b-92e6-6c66ff803f00/players/685ee337372ee5f4dfcac9f7/v4/player.js", 
+    s.async=!0,
+    document.head.appendChild(s); 
+  </script>
 
-<a id="btn" href="#">QUERO MEU PÊNIS MAIOR</a>
+  <a id="btn-buy" href="https://pay.kiwify.com.br/Dn3uXPo" target="_blank" class="btn-buy">QUERO MEU PÊNIS MAIOR</a>
 
-<script>
-    const params = new URLSearchParams(window.location.search);
-    const click_id = params.get('click_id') || '';
-    document.getElementById("btn").href = "https://pay.kiwify.com.br/Dn3uXPo?click_id=" + encodeURIComponent(click_id);
-</script>
+  <script>
+    // Pega cf_click_id e adiciona no link do checkout
+    function getParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    const clickId = getParam('cf_click_id') || getParam('click_id') || '';
+
+    const btnBuy = document.getElementById('btn-buy');
+    if (btnBuy && clickId) {
+      let href = btnBuy.href;
+      if (href.indexOf('?') === -1) {
+        href += '?cf_click_id=' + encodeURIComponent(clickId);
+      } else {
+        href += '&cf_click_id=' + encodeURIComponent(clickId);
+      }
+      btnBuy.href = href;
+    }
+  </script>
 
 </body>
 </html>
