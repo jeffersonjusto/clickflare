@@ -1,22 +1,47 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Obrigado</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 30px;
+<script>
+  (function() {
+    const CLICKFLARE_ENDPOINT = 'https://webeasyhit.com/cf/cv'; // endpoint ClickFlare
+    const PAYOUT = 10; // valor da comissão, ajuste se precisar
+
+    // Função para enviar conversão para ClickFlare
+    function enviarConversao(clickId) {
+      if (!clickId) {
+        console.warn('Nenhum cf_click_id válido para enviar conversão');
+        return;
+      }
+
+      // Para evitar envios múltiplos no mesmo clique, use um flag no localStorage
+      const conversionFlagKey = 'clickflare_conversion_sent_' + clickId;
+      if (localStorage.getItem(conversionFlagKey)) {
+        console.log('Conversão já enviada para clickId:', clickId);
+        return;
+      }
+
+      fetch(`${CLICKFLARE_ENDPOINT}?click_id=${clickId}&payout=${PAYOUT}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log('Conversão enviada para ClickFlare:', data);
+          localStorage.setItem(conversionFlagKey, 'true'); // marca conversão como enviada
+        })
+        .catch(error => {
+          console.error('Erro ao enviar conversão ClickFlare:', error);
+        });
     }
-  </style>
-</head>
-<body>
-  <h1>OBRIGADO PELA SUA COMPRA!</h1>
-  <p>
-    Sua compra foi concluída com sucesso. Enviamos um E-mail de confirmação e
-    todo material da sua compra.
-  </p>
-</body>
-</html>
+
+    // Pega o cf_click_id da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    let clickId = urlParams.get('cf_click_id');
+
+    if (clickId) {
+      // Se achou o parâmetro na URL, salva no localStorage para persistência
+      localStorage.setItem('cf_click_id', clickId);
+    } else {
+      // Se não tem no URL, tenta pegar do localStorage (caso o usuário recarregue a página)
+      clickId = localStorage.getItem('cf_click_id');
+    }
+
+    // Envia a conversão
+    enviarConversao(clickId);
+
+  })();
+</script>
