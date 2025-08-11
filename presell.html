@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aguarde um momento</title>
+<style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background: #fff; }
+    h1 { color: #000; font-size: 28px; }
+    h2 { color: #444; font-size: 20px; margin-bottom: 30px; }
+    a {
+        display: inline-block;
+        background-color: red;
+        color: white;
+        padding: 15px 25px;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 5px;
+        font-size: 18px;
+    }
+</style>
+</head>
+<body>
+
+<h1>AGUARDE UM MOMENTO</h1>
+<h2>POR FAVOR, CONFIRME A SUA IDADE! 👇👇👇👇👇👇</h2>
+<a id="btn" href="#">EU TENHO MAIS DE 35</a>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const click_id = params.get('click_id') || '';
+    document.getElementById("btn").href = "vsl.html?click_id=" + encodeURIComponent(click_id);
+</script>
+
+</body>
+</html>
