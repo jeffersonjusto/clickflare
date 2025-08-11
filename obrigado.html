@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obrigado pela sua compra</title>
+<style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background: #fff; }
+    h1 { color: #000; font-size: 28px; }
+    p { color: #444; font-size: 18px; }
+</style>
+</head>
+<body>
+
+<h1>OBRIGADO PELA SUA COMPRA!</h1>
+<p>Sua compra foi concluída com sucesso.<br>
+Enviamos um e-mail de confirmação com todo material da sua compra.</p>
+
+<script>
+    // Captura click_id para enviar ao ClickFlare
+    const params = new URLSearchParams(window.location.search);
+    const click_id = params.get('click_id') || '';
+    if(click_id) {
+        fetch("https://webeasyhit.com/cf/cv?click_id=" + encodeURIComponent(click_id) + "&payout=10")
+        .then(res => res.json())
+        .then(data => console.log("Conversão enviada para ClickFlare:", data))
+        .catch(err => console.error("Erro ao enviar conversão:", err));
+    }
+</script>
+
+</body>
+</html>
