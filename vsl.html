@@ -1,96 +1,214 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>VSL</title>
+
   <style>
+    /* --- Layout geral --- */
+    :root{
+      --max-desktop: 900px;
+      --primary: #e63946;
+      --primary-dark: #d62828;
+    }
+    html,body{height:100%; margin:0;}
     body {
       font-family: Arial, sans-serif;
-      padding: 20px;
-      max-width: 900px;
+      background:#fff;
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding: 16px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width:100%;
+      max-width: var(--max-desktop);
+    }
+
+    /* VTURB PLAYER responsivo */
+    .player-wrap {
+      width:100%;
+      margin: 0 auto 18px;
+      text-align:center;
+    }
+    vturb-smartplayer, .player-fallback {
+      display:block;
+      width:100%;
+      max-width:800px;
       margin: 0 auto;
-      text-align: center;
+      height: auto;
     }
-    vturb-smartplayer {
-      display: block;
-      margin: 0 auto 2rem;
-      width: 100%;
-      max-width: 800px;
+
+    /* CTA + prova social */
+    .cta-block {
+      width:100%;
+      margin-top: 8px;
+      text-align:center;
     }
+
+    /* Botão: começa oculto (visually hidden via opacity and pointer-events) */
     #btn-buy {
-      display: none;
-      background-color: #e63946;
-      color: white;
-      font-weight: bold;
-      font-size: 1.5rem;
-      padding: 1rem 2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      user-select: none;
-      transition: background-color 0.3s ease;
-      margin-bottom: 20px;
       display: inline-block;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 300ms ease, transform 300ms ease;
+      background-color: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 8px;
+      padding: 14px 22px;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 0;
+      margin-bottom: 14px;
+      display:inline-block;
     }
-    #btn-buy:hover {
-      background-color: #d62828;
+
+    /* Classe que mostra o botão após delay */
+    #btn-buy.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
     }
+
+    #btn-buy:focus{ outline: 3px solid rgba(230,57,70,0.15); outline-offset: 3px; }
+
+    /* Prova social: imagem responsiva que ocupa largura toda no mobile */
     #prova-social {
-      margin-top: 10px;
+      margin-top: 8px;
+      text-align: center;
     }
     #prova-social img {
       width: 100%;
+      max-width: 100%;
       height: auto;
-      max-width: 900px;
+      display: block;
       border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+
+    /* Ajustes para desktop: limitar max width e centralizar */
+    @media (min-width: 768px){
+      body { padding: 24px; }
+      .page{ max-width: var(--max-desktop); }
+      #btn-buy { font-size: 20px; padding: 16px 28px; }
+      #prova-social img { max-width: 900px; margin: 0 auto; }
+    }
+
+    /* Ajustes para celular (garante botão legível e imagem grande) */
+    @media (max-width: 480px) {
+      .page { padding: 0 10px; }
+      #btn-buy { font-size: 18px; padding: 12px 20px; border-radius: 10px; }
+      #prova-social img { border-radius: 6px; }
     }
   </style>
 </head>
 <body>
-  
-  <!-- Vídeo -->
-  <vturb-smartplayer id="vid-685ee337372ee5f4dfcac9f7"></vturb-smartplayer>
+  <div class="page">
 
-  <!-- Prova Social + Botão -->
-  <div id="prova-social">
-    <a id="btn-buy" href="https://pay.kiwify.com.br/Dn3uXPo" target="_blank">
-      QUERO MEU PÊNIS MAIOR
-    </a>
-    <img src="https://i.postimg.cc/hPn4V8Wr/67a51bd88b3db-Fire-Shot-Capture001-Site100-Seguro-hojevirilidademasculina-com.png" 
-         alt="Comentários de clientes" />
+    <!-- PLAYER -->
+    <div class="player-wrap">
+      <vturb-smartplayer id="vid-685ee337372ee5f4dfcac9f7"></vturb-smartplayer>
+      <!-- fallback content while player loads (optional) -->
+      <div class="player-fallback" aria-hidden="true" style="display:none;"></div>
+    </div>
+
+    <!-- CTA (botão aparece depois do delay) e Prova Social (imagem já visível) -->
+    <div class="cta-block">
+      <!-- botao já com href base (será adicionado cf_click_id pelo JS) -->
+      <a id="btn-buy" href="https://pay.kiwify.com.br/Dn3uXPo" target="_blank" rel="noopener noreferrer" aria-hidden="true">
+        QUERO MEU PÊNIS MAIOR
+      </a>
+
+      <!-- Prova social: imagem aparece desde o carregamento -->
+      <div id="prova-social" aria-hidden="false">
+        <img
+          src="https://i.postimg.cc/hPn4V8Wr/67a51bd88b3db-Fire-Shot-Capture001-Site100-Seguro-hojevirilidademasculina-com.png"
+          alt="Comentários de clientes"
+        />
+      </div>
+    </div>
+
   </div>
 
-  <!-- Script Vturb -->
+  <!-- VTURB SCRIPT (carrega player) -->
   <script type="text/javascript">
-    (function() {
+    (function(){
       var s = document.createElement("script");
       s.src = "https://scripts.converteai.net/01e6a0fa-efaa-442b-92e6-6c66ff803f00/players/685ee337372ee5f4dfcac9f7/v4/player.js";
       s.async = true;
       document.head.appendChild(s);
     })();
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const delay = 222 * 1000;
-      const btnBuy = document.getElementById("btn-buy");
-      const urlParams = new URLSearchParams(window.location.search);
-      const cf_click_id = urlParams.get('cf_click_id');
-
-      setTimeout(() => {
-        if (cf_click_id) {
-          let href = btnBuy.href;
-          if (href.indexOf('?') === -1) {
-            href += `?cf_click_id=${cf_click_id}`;
-          } else {
-            href += `&cf_click_id=${cf_click_id}`;
-          }
-          btnBuy.href = href;
-        }
-        btnBuy.style.display = "inline-block";
-      }, delay);
-    });
   </script>
 
-  <!-- Script ClickFlare -->
+  <!-- LOGICA DO BOTAO (delay + repasse cf_click_id) -->
   <script>
-    !function(){"use strict";var n="lp_ref",t="cpid",e="lpurl",c="https://track.lojatudoonline.site",r="(?<domain>http(?:s?)://[^/]*)".concat("/cf/click"),a="(?:(?:/(?<cta>[1-9][0-9]*)/?)|(?:/))?",i="^".concat(r).concat(a).concat("(?:$|(\\?.*))"),o='javascript:window.clickflare.l="(?<original_link>'.concat(r).concat(a,'("|(\\?[^"]*"))).*'),s=function(){return new RegExp(i,"")},u=function(){return new RegExp(o,"")};function l(n){var t=function(n){return n.replace(s(),(function(n){for(var t=[],e=1;e<arguments.length;e++)t[e-1]=arguments[e];var r=t[t.length-1].domain;return n.replace(r,c)}))}(n);return'javascript:window.clickflare.l="'.concat(t,'"; void 0;')}function f(n,t){if(t&&n&&t.apply(document,[n]),/loaded|interactive|complete/.test(document.readyState))for(var e=0,c=document.links.length;e<c;e++)if(s().test(document.links[e].href)){var r=document.links[e];window.clickflare.links_replaced.has(r)||(r.href=l(r.href),window.clickflare.links_replaced.add(r))}}var d,h,m,p;!function(r,a){var i=document.onreadystatechange;window.clickflare||(window.clickflare={listeners:{},customParams:{},links_replaced:new Set,addEventListener:function(n,t){var e=this.listeners[n]||[];e.includes(t)||e.push(t),this.listeners[n]=e},dispatchEvent:function(n,t){t&&(this.customParams[n]=t),(this.listeners[n]||[]).forEach((function(n){return n(t)}))},push:function(n,t){t&&(this.customParams[n]=t),(this.listeners[n]||[]).forEach((function(n){return n(t)}))}},document.onreadystatechange=function(n){return f(n,i)},f(null,i),setTimeout((function(){!function(r,a){var i,o=function(r,a){var i=new UR*_
+    (function() {
+      // Ajuste para teste rápido: coloque true para testar com 5s (não esquecer de voltar a false depois)
+      const TEST_MODE = false; // set true apenas para testes
+      const TEST_DELAY_MS = 5000;
+
+      // delay real (222 segundos)
+      const REAL_DELAY_MS = 222000;
+      const delayMs = TEST_MODE ? TEST_DELAY_MS : REAL_DELAY_MS;
+
+      // Obtém elementos
+      const btn = document.getElementById('btn-buy');
+
+      // Garante que sempre pegamos o href base original (relativo ou absoluto)
+      const baseHref = btn.getAttribute('href') || '';
+
+      // Função para mostrar o botão (adiciona classe .show)
+      function showButton() {
+        btn.classList.add('show');
+        btn.setAttribute('aria-hidden','false');
+      }
+
+      // Função para adicionar cf_click_id ao href (sem transformar em absolute url)
+      function appendClickIdToHref(clickId) {
+        if (!baseHref) return;
+        // usa atributo original para construir novo href
+        const sep = baseHref.indexOf('?') === -1 ? '?' : '&';
+        const newHref = baseHref + sep + 'cf_click_id=' + encodeURIComponent(clickId);
+        btn.setAttribute('href', newHref);
+      }
+
+      // Lê cf_click_id da URL (se houver)
+      function getClickIdFromUrl() {
+        try {
+          return new URLSearchParams(window.location.search).get('cf_click_id');
+        } catch(e) {
+          return null;
+        }
+      }
+
+      // Start: agenda o aparecimento do botão
+      (function scheduleShow(){
+        // sempre agenda, mesmo se DOM já carregado
+        setTimeout(function() {
+          const clickId = getClickIdFromUrl();
+          if (clickId) appendClickIdToHref(clickId);
+          showButton();
+        }, delayMs);
+      })();
+
+      // Segurança: se quiser também mostrar o botão se usuário interagir depois de X (opcional)
+      // Exemplo: se cookie/session já marcado, podemos liberar; por enquanto não usamos.
+
+    })();
+  </script>
+
+  <!-- SCRIPT CLICKFLARE (mantive seu script) -->
+  <script>
+    !function(){"use strict";var n="lp_ref",t="cpid",e="lpurl",c="https://track.lojatudoonline.site",r="(?<domain>http(?:s?)://[^/]*)".concat("/cf/click"),a="(?:(?:/(?<cta>[1-9][0-9]*)/?)|(?:/))?",i="^".concat(r).concat(a).concat("(?:$|(\\?.*))"),o='javascript:window.clickflare.l="(?<original_link>'.concat(r).concat(a,'("|(\\?[^"]*"))).*'),s=function(){return new RegExp(i,"")},u=function(){return new RegExp(o,"")};function l(n){var t=function(n){return n.replace(s(),(function(n){for(var t=[],e=1;e<arguments.length;e++)t[e-1]=arguments[e];var r=t[t.length-1].domain;return n.replace(r,c)}))}(n);return'javascript:window.clickflare.l="'.concat(t,'"; void 0;')}function f(n,t){if(t&&n&&t.apply(document,[n]),/loaded|interactive|complete/.test(document.readyState))for(var e=0,c=document.links.length;e<c;e++)if(s().test(document.links[e].href)){var r=document.links[e];window.clickflare.links_replaced.has(r)||(r.href=l(r.href),window.clickflare.links_replaced.add(r))}}var d,h,m,p;!function(r,a){var i=document.onreadystatechange;window.clickflare||(window.clickflare={listeners:{},customParams:{},links_replaced:new Set,addEventListener:function(n,t){var e=this.listeners[n]||[];e.includes(t)||e.push(t),this.listeners[n]=e},dispatchEvent:function(n,t){t&&(this.customParams[n]=t),(this.listeners[n]||[]).forEach((function(n){return n(t)}))},push:function(n,t){t&&(this.customParams[n]=t),(this.listeners[n]||[]).forEach((function(n){return n(t)}))}},document.onreadystatechange=function(n){return f(n,i)},f(null,i),setTimeout((function(){!function(r,a){var i,o=function(r,a){var i=new URL("".concat(c).concat(r)),o="{",s=o+o;a.startsWith(s)||i.searchParams.set(t,a);return i.searchParams.append(n,document.referrer),i.searchParams.append(e,location.href),i.searchParams.append("lpt",document.title),i.searchParams.append("t",(new Date).getTime().toString()),i.toString()}(r,a),s=document.createElement("script"),l=document.scripts[0];s.async=1,s.src=o,s.onerror=function(){!function(){for(var n=function(n,t){var e=document.links[n];u().test(e.href)&&setTimeout((function(){e&&e.setAttribute("href",function(n){var t=n.match(u());if(t){var e=(t.groups||{}).original_link;return e?e.slice(0,-1):n}return n}(e.href))}))},t=0,e=document.links.length;t<e;t++)n()}()},null===(i=l.parentNode)||void 0===i||i.insertBefore(s,l)}(r,a)})))}("".concat("/cf/tags","/").concat(new URL(window.location.href).searchParams.get("cftmid")||"{{__CONTAINER_ID__}}"),(m=new URL(window.location.href).searchParams.get(t),d=new RegExp("(^| )".concat("cf_cpid","=([^;]+)")),p=(h=document.cookie.match(d))&&h.pop()||null,m||"{{__CAMPAIGN_ID__}}"))}();
+  </script>
+
+</body>
+</html>
