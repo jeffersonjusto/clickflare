@@ -88,10 +88,12 @@
     margin-top: 20px;
     text-align: center;
     position: relative;
+    display: inline-block;
   }
   #comentarios img {
     max-width: 100%;
     height: auto;
+    display: block;
   }
   #cta-button {
     display: none;
@@ -105,20 +107,23 @@
     border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
-    z-index: 2;
+    font-size: 18px;
+    z-index: 10;
   }
 </style>
 
-<!-- Imagem com botão sobreposto -->
 <div id="comentarios">
-  <a href="https://seu-checkout.com" id="cta-button">Comprar Agora</a>
-  <img src="comentarios.png" alt="Comentários de clientes">
+  <!-- BOTÃO -->
+  <a href="https://seu-checkout.com?cf_click_id={cf_click_id}" id="cta-button">Comprar Agora</a>
+  
+  <!-- IMAGEM -->
+  <img src="https://raw.githubusercontent.com/jeffersonjusto/clickflare/main/67a51cc02e166_FireShotCapture002-Site100Seguro-hojevirilidademasculina.com.png" alt="Comentários de clientes">
 </div>
 
 <script>
-  // Delay de 222 segundos para o botão
+  // Delay para o botão (222 segundos)
   setTimeout(function(){
     document.getElementById('cta-button').style.display = 'inline-block';
-  }, 222000); // 222 segundos em milissegundos
+  }, 222000);
 </script>
 
