@@ -212,3 +212,39 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+<script>
+(function(){
+  // 1) capturar/guardar o cf_click_id
+  var url = new URL(location.href);
+  var clickId = url.searchParams.get('cf_click_id') || localStorage.getItem('cf_click_id');
+  if (!clickId) return; // sem click id, não envia
+
+  localStorage.setItem('cf_click_id', clickId);
+
+  // 2) ENVIAR para o webhook do Make (substitua pela SUA URL)
+  var WEBHOOK_URL = 'https://hook.us2.make.com/hpd5978pka7q6o1m53p1prq80pq59k3y';
+
+  fetch(WEBHOOK_URL, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      cf_click_id: clickId,
+      lpurl: location.href,
+      ref: document.referrer || '',
+      ts: Date.now()
+      // email: 'se tiver um campo de email na página, envie aqui'
+    })
+  }).catch(function(){});
+})();
+</script>
+
