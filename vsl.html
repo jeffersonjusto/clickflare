@@ -5,30 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>VSL</title>
   <style>
-    :root{ --max-desktop:900px; --primary:#e63946; }
-    body { font-family:Arial,sans-serif; margin:0; padding:16px; display:flex; justify-content:center; }
-    .page { width:100%; max-width:var(--max-desktop); }
-    .player-wrap { width:100%; margin:0 auto 18px; text-align:center; }
-    #btn-buy {
-      opacity:0; pointer-events:none; transform:translateY(8px);
-      transition:opacity 300ms ease, transform 300ms ease;
-      background-color:var(--primary); color:#fff; font-weight:700;
-      text-decoration:none; border-radius:8px; padding:14px 22px; font-size:18px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    :root {
+      --max-desktop: 900px;
+      --primary: #e63946;
     }
-    #btn-buy.show { opacity:1; pointer-events:auto; transform:translateY(0); }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      background: #fff;
+      color: #111;
+    }
+    .page {
+      width: 100%;
+      max-width: var(--max-desktop);
+    }
+    .player-wrap {
+      width: 100%;
+      margin: 0 auto 18px;
+      text-align: center;
+    }
+    /* Botão centralizado */
+    .cta-block {
+      text-align: center;
+      margin-top: 12px;
+    }
+    #btn-buy {
+      display: inline-block;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 300ms ease, transform 300ms ease;
+      background-color: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 8px;
+      padding: 14px 22px;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin: 0 auto 14px;
+    }
+    #btn-buy.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    /* Prova social responsiva */
+    #prova-social {
+      margin-top: 12px;
+      text-align: center;
+    }
+    #prova-social img {
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    /* Ajuste mobile */
+    @media (max-width: 480px) {
+      body { padding: 10px; }
+      #btn-buy { font-size: 16px; padding: 12px 18px; border-radius: 10px; }
+      #prova-social img { border-radius: 6px; }
+    }
   </style>
 </head>
 <body>
   <div class="page">
+    <!-- PLAYER -->
     <div class="player-wrap">
       <vturb-smartplayer id="vid-685ee337372ee5f4dfcac9f7"></vturb-smartplayer>
     </div>
 
+    <!-- CTA + Prova Social -->
     <div class="cta-block">
       <a id="btn-buy" href="https://pay.hotmart.com/B101378364U?checkoutMode=10" target="_blank" rel="noopener noreferrer">
         QUERO MEU PÊNIS MAIOR
       </a>
+      <div id="prova-social">
+        <img src="https://i.postimg.cc/hPn4V8Wr/67a51bd88b3db-Fire-Shot-Capture001-Site100-Seguro-hojevirilidademasculina-com.png" alt="Comentários de clientes" />
+      </div>
     </div>
   </div>
 
