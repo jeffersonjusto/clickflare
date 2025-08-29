@@ -1,102 +1,42 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Obrigado pela sua compra</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px;
-      background: #f9f9f9;
-      color: #333;
-    }
-    h1 {
-      color: #27ae60;
-      margin-bottom: 20px;
-    }
-    p {
-      font-size: 1.2em;
-    }
-  </style>
-</head>
-<body>
-  <h1>Obrigado pela sua compra!</h1>
-  <p>Todo o seu material foi enviado para o seu email.</p>
+<script>
+// === Captura do ttclid (TikTok Click ID) ===
+(function() {
+  function getParam(p) {
+    var match = RegExp('[?&]' + p + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+  }
+  
+  var ttclid = getParam('ttclid');
+  if (ttclid) {
+    // salva em cookie por 7 dias
+    document.cookie = "ttclid=" + ttclid + "; path=/; max-age=" + (7*24*60*60);
+  }
+})();
+</script>
 
-  <script>
-    (function() {
-      const CLICKFLARE_ENDPOINT = 'https://webeasyhit.com/cf/cv'; // Endpoint ClickFlare para enviar conversão
-      const PAYOUT = 10; // Ajuste para o valor do payout da sua campanha
-
-      function enviarConversao(clickId) {
-        if (!clickId) {
-          console.warn('Nenhum cf_click_id válido encontrado para enviar conversão');
-          return;
-        }
-
-        const flagConversionEnviada = 'clickflare_conversion_sent_' + clickId;
-        if (localStorage.getItem(flagConversionEnviada)) {
-          console.log('Conversão já enviada para clickId:', clickId);
-          return;
-        }
-
-        fetch(`${CLICKFLARE_ENDPOINT}?click_id=${clickId}&payout=${PAYOUT}`)
-          .then(response => response.json())
-          .then(data => {
-            console.log('Conversão enviada para ClickFlare:', data);
-            localStorage.setItem(flagConversionEnviada, 'true');
-          })
-          .catch(error => {
-            console.error('Erro ao enviar conversão ClickFlare:', error);
-          });
-      }
-
-      const urlParams = new URLSearchParams(window.location.search);
-      let clickId = urlParams.get('cf_click_id');
-
-      if (clickId) {
-        localStorage.setItem('cf_click_id', clickId);
-      } else {
-        clickId = localStorage.getItem('cf_click_id');
-      }
-
-      enviarConversao(clickId);
-    })();
-  </script>
-
-  <script>
-    !function(){"use strict";var n="lp_ref",t="cpid",e="lpurl",c="https://track.lojatudoonline.site",r="(?<domain>http(?:s?)://[^/]*)".concat("/cf/click"),a="(?:(?:/(?<cta>[1-9][0-9]*)/?)|(?:/))?",i="^".concat(r).concat(a).concat("(?:$|(\\?.*))"),o='javascript:window.clickflare.l="(?<original_link>'.concat(r).concat(a,'("|(\\?[^"]*"))).*'),s=function(){return new RegExp(i,"")},u=function(){return new RegExp(o,"")};function l(n){var t=function(n){return n.replace(s(),(function(n){for(var t=[],e=1;e<arguments.length;e++)t[e-1]=arguments[e];var r=t[t.length-1].domain;return n.replace(r,c)}))}(n);return'javascript:window.clickflare.l="'.concat(t,'"; void 0;')}function f(n,t){if(t&&n&&t.apply(document,[n]),/loaded|interactive|complete/.test(document.readyState))for(var e=0,c=document.links.length;e<c;e++)if(s().test(document.links[e].href)){var r=document.links[e];window.clickflare.links_replaced.has(r)||(r.href=l(r.href),window.clickflare.links_replaced.add(r))}}var d,h,m,p;!function(r,a){var i=document.onreadystatechange;window.clickflare||(window.clickflare={listeners:{},customParams:{},links_replaced:new Set,addEventListener:function(n,t){var e=this.listeners[n]||[];e.includes(t)||e.push(t),this.listeners[n]=e},dispatchEvent:function(n,t){t&&(this.customParams[n]=t),(this.listeners[n]||[]).forEach((function(n){return n(t)}))},push:function(n,t){t&&(this.customParams[n]=t),(this.listeners[n]||[]).forEach((function(n){return n(t)}))}},document.onreadystatechange=function(n){return f(n,i)},f(null,i),setTimeout((function(){!function(r,a){var i,o=function(r,a){var i=new URL("".concat(c).concat(r)),o="{",s=o+o;a.startsWith(s)||i.searchParams.set(t,a);return i.searchParams.append(n,document.referrer),i.searchParams.append(e,location.href),i.searchParams.append("lpt",document.title),i.searchParams.append("t",(new Date).getTime().toString()),i.toString()}(r,a),s=document.createElement("script"),l=document.scripts[0];s.async=1,s.src=o,s.onerror=function(){!function(){for(var n=function(n,t){var e=document.links[n];u().test(e.href)&&setTimeout((function(){e&&e.setAttribute("href",function(n){var t=n.match(u());if(t){var e=(t.groups||{}).original_link;return e?e.slice(0,-1):n}return n}(e.href))}))},t=0,e=document.links.length;t<e;t++)n()}()},null===(i=l.parentNode)||void 0===i||i.insertBefore(s,l)}(r,a)}))}();
-  </script>
-</body>
-</html>
-
-
-
-
+<!-- TikTok Pixel -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var tt=w[t]=w[t]||[];
+  tt.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],
+  tt.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
+  for(var i=0;i<tt.methods.length;i++)tt.setAndDefer(tt,tt.methods[i]);
+  tt.instance=function(t){var e=tt._i[t]||[];for(var n=0;n<tt.methods.length;n++)tt.setAndDefer(e,tt.methods[n]);return e};
+  tt.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";
+  tt._i=tt._i||{},tt._i[e]=[],tt._i[e]._u=i,tt._t=tt._t||{},tt._t[e]=+new Date,
+  tt._o=tt._o||{},tt._o[e]=n||{};var o=document.createElement("script");
+  o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;
+  var a=document.getElementsByTagName("script")[0];
+  a.parentNode.insertBefore(o,a)};
+  tt.load('SEU_PIXEL_ID'); // substitua pelo ID do seu pixel
+  tt.page();
+}(window, document, 'ttq');
+</script>
 
 <script>
-(function(){
-  // 1) capturar/guardar o cf_click_id
-  var url = new URL(location.href);
-  var clickId = url.searchParams.get('cf_click_id') || localStorage.getItem('cf_click_id');
-  if (!clickId) return; // sem click id, não envia
-
-  localStorage.setItem('cf_click_id', clickId);
-
-  // 2) ENVIAR para o webhook do Make (substitua pela SUA URL)
-  var WEBHOOK_URL = 'https://hook.us2.make.com/hpd5978pka7q6o1m53p1prq80pq59k3y';
-
-  fetch(WEBHOOK_URL, {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({
-      cf_click_id: clickId,
-      lpurl: location.href,
-      ref: document.referrer || '',
-      ts: Date.now()
-      // email: 'se tiver um campo de email na página, envie aqui'
-    })
-  }).catch(function(){});
-})();
+// === Disparo do evento Purchase ===
+ttq.track('CompletePayment', {
+  value: 100.00,   // valor da venda
+  currency: 'BRL', // moeda
+});
 </script>
