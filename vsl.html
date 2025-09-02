@@ -148,3 +148,36 @@
   <script>/* mantém exatamente como no seu código */</script>
 </body>
 </html>
+
+
+<script>
+// Captura o ttclid da URL
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const ttclid = params.get("ttclid");
+
+  if (ttclid) {
+    // Salva no localStorage
+    localStorage.setItem("ttclid", ttclid);
+  }
+})();
+</script>
+
+<!-- Exemplo de botão/link para checkout -->
+<a id="checkout-link" href="https://pay.hotmart.com/B101378364U?checkoutMode=10">Ir para o Checkout</a>
+
+<script>
+// Anexa o ttclid ao checkout
+(function() {
+  const checkoutLink = document.getElementById("checkout-link");
+  if (checkoutLink) {
+    const ttclid = localStorage.getItem("ttclid");
+    if (ttclid) {
+      let url = new URL(checkoutLink.href);
+      url.searchParams.set("ttclid", ttclid);
+      checkoutLink.href = url.toString();
+    }
+  }
+})();
+</script>
+
