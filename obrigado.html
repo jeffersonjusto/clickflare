@@ -67,3 +67,39 @@
 
 </body>
 </html>
+
+<script>
+// Recupera o ttclid
+(function() {
+  const ttclid = localStorage.getItem("ttclid");
+
+  if (ttclid) {
+    // Dispara evento de conversão
+    fetch("https://business-api.tiktokglobalshop.com/open_api/v1.3/track/event/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Token": "SEU_TOKEN_DE_API"
+      },
+      body: JSON.stringify({
+        event: "CompletePayment",
+        event_id: Date.now().toString(),
+        timestamp: Math.floor(Date.now() / 1000),
+        context: {
+          ad: {
+            callback: ttclid
+          }
+        },
+        properties: {
+          currency: "BRL",
+          value: 34.00
+        }
+      })
+    })
+    .then(res => res.json())
+    .then(data => console.log("Conversão enviada:", data))
+    .catch(err => console.error("Erro ao enviar conversão:", err));
+  }
+})();
+</script>
+
