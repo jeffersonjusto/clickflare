@@ -49,96 +49,53 @@
     <a id="btn-confirm" href="vsl.html">EU TENHO MAIS DE 35</a>
   </div>
 
+  <!-- TikTok Pixel -->
   <script>
-  (function(){
-    const btn = document.getElementById('btn-confirm');
-    if (!btn) return;
-
-    const url = new URL(window.location.href);
-    const clickId = url.searchParams.get('cf_click_id') || localStorage.getItem('cf_click_id');
-
-    if (clickId) {
-      localStorage.setItem('cf_click_id', clickId);
-      const baseHref = btn.getAttribute('href');
-      const sep = baseHref.includes('?') ? '&' : '?';
-      btn.href = baseHref + sep + 'cf_click_id=' + encodeURIComponent(clickId);
-    }
-
-<!-- TikTok Pixel - Presell -->
-<script>
-  !function (w, d, t) {
-    w.TiktokAnalyticsObject = t;
-    var ttq = w[t] = w[t] || [];
-    ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie"];
-    ttq.setAndDefer = function (t, e) { t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments,0))) } };
-    for (var i=0; i<ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
-    ttq.instance = function (t) { var e = ttq._i[t] || []; return e };
-    ttq.load = function (e,n) {
-      var i="https://analytics.tiktok.com/i18n/pixel/events.js";
-      ttq._i = ttq._i || {};
-      ttq._i[e] = [];
-      ttq._i[e]._u = i;
-      ttq._t = ttq._t || {};
-      ttq._t[e] =+ new Date;
-      ttq._o = ttq._o || {};
-      ttq._o[e] = n || {};
-      var o = document.createElement("script");
-      o.type = "text/javascript", o.async = !0, o.src = i + "?sdkid=" + e + "&lib=" + t;
-      var a = document.getElementsByTagName("script")[0];
-      a.parentNode.insertBefore(o, a);
-    };
-
-    ttq.load('SEU_PIXEL_ID_AQUI');
-    ttq.page();
-  }(window, document, 'ttq');
-</script>
-
-<!-- Captura o ttclid e mantém nos links -->
-<script>
-  (function() {
-    function getParam(param) {
-      var urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
-
-    var ttclid = getParam("ttclid");
-
-    if (ttclid) {
-      // Armazena no localStorage
-      localStorage.setItem("ttclid", ttclid);
-    } else {
-      // Recupera se já existir
-      ttclid = localStorage.getItem("ttclid");
-    }
-
-    // Garante que todos os links passem o ttclid adiante
-    document.addEventListener("DOMContentLoaded", function() {
-      var links = document.querySelectorAll("a");
-      links.forEach(function(link) {
-        if (link.href.includes("http")) {
-          var separator = link.href.includes("?") ? "&" : "?";
-          link.href = link.href + separator + "ttclid=" + ttclid;
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject = t;
+      var ttq = w[t] = w[t] || [];
+      ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie"];
+      ttq.setAndDefer = function (t, e) {
+        t[e] = function () {
+          t.push([e].concat(Array.prototype.slice.call(arguments,0)))
         }
-      });
-    });
-  })();
-</script>
+      };
+      for (var i=0; i<ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+      ttq.load = function (e,n) {
+        var i="https://analytics.tiktok.com/i18n/pixel/events.js";
+        ttq._i = ttq._i || {};
+        ttq._i[e] = [];
+        ttq._i[e]._u = i;
+        ttq._t = ttq._t || {};
+        ttq._t[e] =+ new Date;
+        ttq._o = ttq._o || {};
+        ttq._o[e] = n || {};
+        var o = document.createElement("script");
+        o.type = "text/javascript", o.async = !0, o.src = i + "?sdkid=" + e + "&lib=" + t;
+        var a = document.getElementsByTagName("script")[0];
+        a.parentNode.insertBefore(o, a);
+      };
+      ttq.load('SEU_PIXEL_ID_AQUI');
+      ttq.page();
+    }(window, document, 'ttq');
+  </script>
 
-    
-    // Envia evento para Make
-    if (clickId) {
-      fetch("https://hook.us2.make.com/hpd5978pka7q6o1m53p1prq80pq59k3y", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({
-          cf_click_id: clickId,
-          lpurl: location.href,
-          ref: document.referrer || '',
-          ts: Date.now()
-        })
-      }).catch(()=>{});
-    }
-  })();
+  <!-- Captura e propaga ttclid -->
+  <script>
+    (function(){
+      const btn = document.getElementById('btn-confirm');
+      if (!btn) return;
+
+      const url = new URL(window.location.href);
+      const ttclid = url.searchParams.get('ttclid') || localStorage.getItem('ttclid');
+
+      if (ttclid) {
+        localStorage.setItem('ttclid', ttclid);
+        const baseHref = btn.getAttribute('href');
+        const sep = baseHref.includes('?') ? '&' : '?';
+        btn.href = baseHref + sep + 'ttclid=' + encodeURIComponent(ttclid);
+      }
+    })();
   </script>
 
   <!-- Clickflare -->
