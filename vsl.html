@@ -5,70 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>VSL</title>
   <style>
-    :root {
-      --max-desktop: 900px;
-      --primary: #e63946;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 16px;
-      display: flex;
-      justify-content: center;
-      background: #fff;
-      color: #111;
-    }
-    .page {
-      width: 100%;
-      max-width: var(--max-desktop);
-    }
-    .player-wrap {
-      width: 100%;
-      margin: 0 auto 18px;
-      text-align: center;
-    }
-    .cta-block {
-      text-align: center;
-      margin-top: 12px;
-    }
+    :root { --max-desktop: 900px; --primary: #e63946; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 16px;
+           display: flex; justify-content: center; background: #fff; color: #111; }
+    .page { width: 100%; max-width: var(--max-desktop); }
+    .player-wrap { width: 100%; margin: 0 auto 18px; text-align: center; }
+    .cta-block { text-align: center; margin-top: 12px; }
     #btn-buy {
-      display: inline-block;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(8px);
-      transition: opacity 300ms ease, transform 300ms ease;
-      background-color: var(--primary);
-      color: #fff;
-      font-weight: 700;
-      text-decoration: none;
-      border-radius: 8px;
-      padding: 14px 22px;
-      font-size: 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin: 0 auto 14px;
+      display: inline-block; opacity: 0; pointer-events: none;
+      transform: translateY(8px); transition: all 300ms ease;
+      background-color: var(--primary); color: #fff; font-weight: 700;
+      text-decoration: none; border-radius: 8px; padding: 14px 22px;
+      font-size: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
-    #btn-buy.show {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-    #prova-social {
-      margin-top: 12px;
-      text-align: center;
-    }
-    #prova-social img {
-      width: 100%;
-      max-width: 900px;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    }
+    #btn-buy.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #prova-social { margin-top: 12px; text-align: center; }
+    #prova-social img { width: 100%; max-width: 900px; border-radius: 8px; }
     @media (max-width: 480px) {
-      body { padding: 10px; }
       #btn-buy { font-size: 16px; padding: 12px 18px; border-radius: 10px; }
-      #prova-social img { border-radius: 6px; }
     }
   </style>
 </head>
@@ -77,54 +31,56 @@
     <div class="player-wrap">
       <vturb-smartplayer id="vid-685ee337372ee5f4dfcac9f7"></vturb-smartplayer>
     </div>
-
     <div class="cta-block">
-      <a id="btn-buy" href="https://pay.hotmart.com/B101378364U?checkoutMode=10" target="_blank" rel="noopener noreferrer">
-        QUERO MEU PÊNIS MAIOR
-      </a>
+      <a id="btn-buy" href="https://pay.hotmart.com/B101378364U?checkoutMode=10" target="_blank">QUERO MEU PÊNIS MAIOR</a>
       <div id="prova-social">
         <img src="https://i.postimg.cc/hPn4V8Wr/67a51bd88b3db-Fire-Shot-Capture001-Site100-Seguro-hojevirilidademasculina-com.png" alt="Comentários de clientes" />
       </div>
     </div>
   </div>
 
-  <!-- Player -->
+  <!-- Vturb -->
   <script>
-    (function(){
-      var s=document.createElement("script");
-      s.src="https://scripts.converteai.net/01e6a0fa-efaa-442b-92e6-6c66ff803f00/players/685ee337372ee5f4dfcac9f7/v4/player.js";
-      s.async=true; document.head.appendChild(s);
-    })();
+    (function(){var s=document.createElement("script");
+    s.src="https://scripts.converteai.net/01e6a0fa-efaa-442b-92e6-6c66ff803f00/players/685ee337372ee5f4dfcac9f7/v4/player.js";
+    s.async=true;document.head.appendChild(s);})();
   </script>
 
-  <!-- Delay + tracking -->
+  <!-- Delay + ttclid -->
   <script>
     (function(){
-      const delay=222000;
-      const btn=document.getElementById('btn-buy');
-      const baseHref=btn.getAttribute('href');
-
-      function showBtn(){ btn.classList.add('show'); }
-
-      function appendClickId(id){
-        if(!id) return;
-        const sep=baseHref.includes('?')?'&':'?';
-        btn.href=baseHref+sep+'ttclid='+encodeURIComponent(id);
+      const delay = 222000; // 3min42
+      const btn = document.getElementById("btn-buy");
+      const baseHref = btn.getAttribute("href");
+      function showBtn(){ btn.classList.add("show"); }
+      function getTtclid(){
+        return new URLSearchParams(location.search).get("ttclid") || localStorage.getItem("ttclid");
       }
-
-      const ttclid = new URLSearchParams(location.search).get('ttclid') || localStorage.getItem('ttclid');
-
       setTimeout(()=>{
-        if(ttclid){
-          localStorage.setItem('ttclid', ttclid);
-          appendClickId(ttclid);
+        const ttclid=getTtclid();
+        if (ttclid) {
+          localStorage.setItem("ttclid", ttclid);
+          const sep = baseHref.includes("?")?"&":"?";
+          btn.href = baseHref+sep+"ttclid="+encodeURIComponent(ttclid);
         }
         showBtn();
-      },delay);
+      }, delay);
     })();
   </script>
 
-  <!-- Clickflare -->
-  <script>/* mantém exatamente como no seu código */</script>
+  <!-- TikTok Pixel -->
+  <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject = t; var ttq=w[t]=w[t]||[];
+      ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
+      ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
+      for(var i=0;i<ttq.methods.length;i++) ttq.setAndDefer(ttq,ttq.methods[i]);
+      ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";
+        ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=i;ttq._t=ttq._t||{};ttq._t[e]=+new Date;
+        var o=d.createElement("script");o.async=!0;o.src=i+"?sdkid="+e+"&lib="+t;
+        var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+      ttq.load('D0RK96JC77U19I8AVG5G'); ttq.page();
+    }(window, document, 'ttq');
+  </script>
 </body>
 </html>
