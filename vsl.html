@@ -27,7 +27,6 @@
       margin: 0 auto 18px;
       text-align: center;
     }
-    /* Botão centralizado */
     .cta-block {
       text-align: center;
       margin-top: 12px;
@@ -53,7 +52,6 @@
       pointer-events: auto;
       transform: translateY(0);
     }
-    /* Prova social responsiva */
     #prova-social {
       margin-top: 12px;
       text-align: center;
@@ -67,7 +65,6 @@
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.12);
     }
-    /* Ajuste mobile */
     @media (max-width: 480px) {
       body { padding: 10px; }
       #btn-buy { font-size: 16px; padding: 12px 18px; border-radius: 10px; }
@@ -77,12 +74,10 @@
 </head>
 <body>
   <div class="page">
-    <!-- PLAYER -->
     <div class="player-wrap">
       <vturb-smartplayer id="vid-685ee337372ee5f4dfcac9f7"></vturb-smartplayer>
     </div>
 
-    <!-- CTA + Prova Social -->
     <div class="cta-block">
       <a id="btn-buy" href="https://pay.hotmart.com/B101378364U?checkoutMode=10" target="_blank" rel="noopener noreferrer">
         QUERO MEU PÊNIS MAIOR
@@ -93,7 +88,7 @@
     </div>
   </div>
 
-  <!-- Vturb Player -->
+  <!-- Player -->
   <script>
     (function(){
       var s=document.createElement("script");
@@ -104,80 +99,32 @@
 
   <!-- Delay + tracking -->
   <script>
-  (function(){
-    const TEST_MODE=false, TEST_DELAY=5000, REAL_DELAY=222000;
-    const delay=TEST_MODE?TEST_DELAY:REAL_DELAY;
-    const btn=document.getElementById('btn-buy');
-    const baseHref=btn.getAttribute('href');
+    (function(){
+      const delay=222000;
+      const btn=document.getElementById('btn-buy');
+      const baseHref=btn.getAttribute('href');
 
-    function showBtn(){ btn.classList.add('show'); }
+      function showBtn(){ btn.classList.add('show'); }
 
-    function appendClickId(id){
-      if(!id) return;
-      const sep=baseHref.includes('?')?'&':'?';
-      btn.href=baseHref+sep+'cf_click_id='+encodeURIComponent(id);
-    }
-
-    function getClickId(){
-      return new URLSearchParams(location.search).get('cf_click_id') || localStorage.getItem('cf_click_id');
-    }
-
-    setTimeout(()=>{
-      const clickId=getClickId();
-      if(clickId){
-        localStorage.setItem('cf_click_id', clickId);
-        appendClickId(clickId);
-
-        fetch("https://hook.us2.make.com/hpd5978pka7q6o1m53p1prq80pq59k3y",{
-          method:"POST",
-          headers:{"Content-Type":"application/json"},
-          body:JSON.stringify({
-            cf_click_id:clickId,
-            lpurl:location.href,
-            ref:document.referrer||'',
-            ts:Date.now()
-          })
-        }).catch(()=>{});
+      function appendClickId(id){
+        if(!id) return;
+        const sep=baseHref.includes('?')?'&':'?';
+        btn.href=baseHref+sep+'ttclid='+encodeURIComponent(id);
       }
-      showBtn();
-    },delay);
-  })();
+
+      const ttclid = new URLSearchParams(location.search).get('ttclid') || localStorage.getItem('ttclid');
+
+      setTimeout(()=>{
+        if(ttclid){
+          localStorage.setItem('ttclid', ttclid);
+          appendClickId(ttclid);
+        }
+        showBtn();
+      },delay);
+    })();
   </script>
 
   <!-- Clickflare -->
   <script>/* mantém exatamente como no seu código */</script>
 </body>
 </html>
-
-
-<script>
-// Captura o ttclid da URL
-(function() {
-  const params = new URLSearchParams(window.location.search);
-  const ttclid = params.get("ttclid");
-
-  if (ttclid) {
-    // Salva no localStorage
-    localStorage.setItem("ttclid", ttclid);
-  }
-})();
-</script>
-
-<!-- Exemplo de botão/link para checkout -->
-<a id="checkout-link" href="https://pay.hotmart.com/B101378364U?checkoutMode=10">Ir para o Checkout</a>
-
-<script>
-// Anexa o ttclid ao checkout
-(function() {
-  const checkoutLink = document.getElementById("checkout-link");
-  if (checkoutLink) {
-    const ttclid = localStorage.getItem("ttclid");
-    if (ttclid) {
-      let url = new URL(checkoutLink.href);
-      url.searchParams.set("ttclid", ttclid);
-      checkoutLink.href = url.toString();
-    }
-  }
-})();
-</script>
-
