@@ -10,18 +10,9 @@
     !function (w, d, t) {
       w.TiktokAnalyticsObject = t;
       var ttq = w[t] = w[t] || [];
-      ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
-      ttq.setAndDefer = function(t,e){
-        t[e] = function(){
-          t.push([e].concat(Array.prototype.slice.call(arguments,0)))
-        }
-      };
+      ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie"];
+      ttq.setAndDefer = function(t,e){ t[e] = function(){ t.push([e].concat(Array.prototype.slice.call(arguments,0))) } };
       for(var i=0;i<ttq.methods.length;i++) ttq.setAndDefer(ttq,ttq.methods[i]);
-      ttq.instance = function(t){
-        var e = ttq._i[t] || [];
-        for(var n=0;n<ttq.methods.length;n++) ttq.setAndDefer(e,ttq.methods[n]);
-        return e
-      };
       ttq.load = function(e,n){
         var i="https://analytics.tiktok.com/i18n/pixel/events.js";
         ttq._i=ttq._i||{};
@@ -60,46 +51,36 @@
   <!-- Evento de compra TikTok -->
   <script>
     ttq.track('CompletePayment', {
-      value: 0,  // insira valor da compra se quiser
+      value: 34.00,
       currency: 'BRL'
     });
   </script>
 
+  <!-- Server-Side Event API TikTok -->
+  <script>
+    (function() {
+      const ttclid = localStorage.getItem("ttclid");
+      if (ttclid) {
+        fetch("https://business-api.tiktokglobalshop.com/open_api/v1.3/track/event/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Token": "SUA_ACCESS_TOKEN_API"
+          },
+          body: JSON.stringify({
+            event: "CompletePayment",
+            event_id: Date.now().toString(),
+            timestamp: Math.floor(Date.now() / 1000),
+            context: { ad: { callback: ttclid }},
+            properties: { currency: "BRL", value: 34.00 }
+          })
+        })
+        .then(res => res.json())
+        .then(data => console.log("Conversão enviada:", data))
+        .catch(err => console.error("Erro ao enviar conversão:", err));
+      }
+    })();
+  </script>
+
 </body>
 </html>
-
-<script>
-// Recupera o ttclid
-(function() {
-  const ttclid = localStorage.getItem("ttclid");
-
-  if (ttclid) {
-    // Dispara evento de conversão
-    fetch("https://business-api.tiktokglobalshop.com/open_api/v1.3/track/event/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Token": "4c0a11ff63a9f90245632bf156a5de4d2f63c937"
-      },
-      body: JSON.stringify({
-        event: "CompletePayment",
-        event_id: Date.now().toString(),
-        timestamp: Math.floor(Date.now() / 1000),
-        context: {
-          ad: {
-            callback: ttclid
-          }
-        },
-        properties: {
-          currency: "BRL",
-          value: 34.00
-        }
-      })
-    })
-    .then(res => res.json())
-    .then(data => console.log("Conversão enviada:", data))
-    .catch(err => console.error("Erro ao enviar conversão:", err));
-  }
-})();
-</script>
-
