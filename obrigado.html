@@ -21,23 +21,24 @@
         ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=i;ttq._t=ttq._t||{};ttq._t[e]=+new Date;
         var o=d.createElement("script");o.async=!0;o.src=i+"?sdkid="+e+"&lib="+t;
         var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
-      ttq.load('D0RK96JC77U19I8AVG5G'); ttq.page();
+      ttq.load('D0RK96JC77U19I8AVG5G'); 
+      ttq.page();
     }(window, document, 'ttq');
   </script>
 
-  <!-- Evento Purchase Pixel -->
+  <!-- Disparo de evento só se tiver Click ID -->
   <script>
-    ttq.track('CompletePayment', {
-      value: 34.00,
-      currency: 'BRL'
-    });
-  </script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const ttclid = urlParams.get('ttclid');
 
-  <!-- API TikTok Server-Side -->
-  <script>
-    (function(){
-      const ttclid = localStorage.getItem("ttclid") || (document.cookie.match(/ttclid=([^;]+)/)||[])[1];
-      if (!ttclid) return;
+    if (ttclid) {
+      // Evento do Pixel
+      ttq.track('CompletePayment', {
+        value: 34.00,
+        currency: 'BRL'
+      });
+
+      // API TikTok Server-Side
       fetch("https://business-api.tiktokglobalshop.com/open_api/v1.3/event/track/", {
         method: "POST",
         headers: {
@@ -50,9 +51,12 @@
           context: { ad: { callback: ttclid } },
           properties: { currency: "BRL", value: 34.00 }
         })
-      }).then(r=>r.json()).then(d=>console.log("Conversão enviada:",d))
-      .catch(e=>console.error("Erro conversão:",e));
-    })();
+      })
+      .then(r=>r.json()).then(d=>console.log("Conversão enviada:", d))
+      .catch(e=>console.error("Erro conversão:", e));
+    } else {
+      console.log("Nenhum ttclid encontrado. Evento não disparado.");
+    }
   </script>
 
   <!-- Hotmart Tracking -->
