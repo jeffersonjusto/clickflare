@@ -6,6 +6,7 @@
   <title>Obrigado pela sua compra!</title>
 </head>
 <body style="font-family: Arial; text-align: center; padding: 50px;">
+
   <h1>🎉 Obrigado pela sua compra!</h1>
   <p>Seu pedido foi processado com sucesso.</p>
   <p>Em instantes você receberá um e-mail com os dados de acesso.</p>
@@ -13,58 +14,84 @@
   <!-- TikTok Pixel -->
   <script>
     !function (w, d, t) {
-      w.TiktokAnalyticsObject = t; var ttq=w[t]=w[t]||[];
-      ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
-      ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
-      for(var i=0;i<ttq.methods.length;i++) ttq.setAndDefer(ttq,ttq.methods[i]);
-      ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";
-        ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=i;ttq._t=ttq._t||{};ttq._t[e]=+new Date;
-        var o=d.createElement("script");o.async=!0;o.src=i+"?sdkid="+e+"&lib="+t;
-        var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
-      ttq.load('D0RK96JC77U19I8AVG5G'); 
+      w.TiktokAnalyticsObject = t;
+      var ttq = w[t] = w[t] || [];
+      ttq.methods = ["page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie"];
+      ttq.setAndDefer = function (t, e) {
+        t[e] = function () {
+          t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+        }
+      };
+      for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+      ttq.load = function (e, n) {
+        var i = "https://analytics.tiktok.com/i18n/pixel/events.js";
+        ttq._i = ttq._i || {};
+        ttq._i[e] = [];
+        ttq._i[e]._u = i;
+        ttq._t = ttq._t || {};
+        ttq._t[e] = +new Date;
+        var o = d.createElement("script");
+        o.async = !0;
+        o.src = i + "?sdkid=" + e + "&lib=" + t;
+        var a = d.getElementsByTagName("script")[0];
+        a.parentNode.insertBefore(o, a)
+      };
+      ttq.load('D0RK96JC77U19I8AVG5G'); // <-- Seu Pixel ID
       ttq.page();
     }(window, document, 'ttq');
   </script>
 
-  <!-- Disparo de evento só se tiver Click ID -->
+  <!-- Evento Purchase Pixel (Client-Side) -->
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const ttclid = urlParams.get('ttclid');
+    ttq.track('CompletePayment', {
+      value: 34.00,  // <-- Substituir pelo valor dinâmico
+      currency: 'BRL'
+    });
+  </script>
 
-    if (ttclid) {
-      // Evento do Pixel
-      ttq.track('CompletePayment', {
-        value: 34.00,
-        currency: 'BRL'
-      });
+  <!-- API TikTok Server-Side -->
+  <script>
+    (function () {
+      // Captura o ttclid salvo em cookie/localStorage (tracking do TikTok Ads)
+      const ttclid = localStorage.getItem("ttclid") || (document.cookie.match(/ttclid=([^;]+)/) || [])[1];
+      if (!ttclid) {
+        console.warn("⚠️ Nenhum ttclid encontrado, evento server-side não será enviado.");
+        return;
+      }
 
-      // API TikTok Server-Side
-      fetch("https://business-api.tiktokglobalshop.com/open_api/v1.3/event/track/", {
+      fetch("https://business-api.tiktokglobalplatform.com/open_api/v1.3/event/track/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Access-Token": "4c0a11ff63a9f90245632bf156a5de4d2f63c937"
+          "Access-Token": "4c0a11ff63a9f90245632bf156a5de4d2f63c937" // <-- Seu token válido
         },
         body: JSON.stringify({
-          pixel_code: "D0RK96JC77U19I8AVG5G",
+          pixel_code: "D0RK96JC77U19I8AVG5G", // <-- Seu Pixel ID
           event: "Purchase",
-          context: { ad: { callback: ttclid } },
-          properties: { currency: "BRL", value: 34.00 }
+          context: {
+            ad: {
+              callback: ttclid // <-- Essencial para atrelar ao clique real do anúncio
+            }
+          },
+          properties: {
+            currency: "BRL",
+            value: 34.00 // <-- Substituir pelo valor dinâmico real
+          }
         })
       })
-      .then(r=>r.json()).then(d=>console.log("Conversão enviada:", d))
-      .catch(e=>console.error("Erro conversão:", e));
-    } else {
-      console.log("Nenhum ttclid encontrado. Evento não disparado.");
-    }
+        .then(r => r.json())
+        .then(d => console.log("✅ Conversão enviada para TikTok:", d))
+        .catch(e => console.error("❌ Erro ao enviar conversão:", e));
+    })();
   </script>
 
   <!-- Hotmart Tracking -->
   <script>
     var hotmartTag = hotmartTag || [];
-    hotmartTag.push(['_setAccount','SEU_ID_HOTMART_AQUI']);
+    hotmartTag.push(['_setAccount', 'SEU_ID_HOTMART_AQUI']); // <-- Substituir pelo ID da sua conta Hotmart
     hotmartTag.push(['_trackPageview']);
   </script>
   <script async src="https://static.hotmart.com/track.js"></script>
+
 </body>
 </html>
