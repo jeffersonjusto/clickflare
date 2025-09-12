@@ -11,7 +11,7 @@
   <p>Seu pedido foi processado com sucesso.</p>
   <p>Em instantes você receberá um e-mail com os dados de acesso.</p>
 
-  <!-- TikTok Pixel -->
+  <!-- TikTok Pixel (somente PageView) -->
   <script>
     !function (w, d, t) {
       w.TiktokAnalyticsObject = t;
@@ -37,22 +37,13 @@
         a.parentNode.insertBefore(o, a)
       };
       ttq.load('D0RK96JC77U19I8AVG5G'); // <-- Seu Pixel ID
-      ttq.page();
+      ttq.page(); // só registra pageview
     }(window, document, 'ttq');
   </script>
 
-  <!-- Evento Purchase Pixel (Client-Side) -->
-  <script>
-    ttq.track('CompletePayment', {
-      value: 34.00,  // <-- Substituir pelo valor dinâmico
-      currency: 'BRL'
-    });
-  </script>
-
-  <!-- API TikTok Server-Side -->
+  <!-- TikTok Server-Side API -->
   <script>
     (function () {
-      // Captura o ttclid salvo em cookie/localStorage (tracking do TikTok Ads)
       const ttclid = localStorage.getItem("ttclid") || (document.cookie.match(/ttclid=([^;]+)/) || [])[1];
       if (!ttclid) {
         console.warn("⚠️ Nenhum ttclid encontrado, evento server-side não será enviado.");
@@ -69,9 +60,7 @@
           pixel_code: "D0RK96JC77U19I8AVG5G", // <-- Seu Pixel ID
           event: "Purchase",
           context: {
-            ad: {
-              callback: ttclid // <-- Essencial para atrelar ao clique real do anúncio
-            }
+            ad: { callback: ttclid }
           },
           properties: {
             currency: "BRL",
@@ -80,15 +69,15 @@
         })
       })
         .then(r => r.json())
-        .then(d => console.log("✅ Conversão enviada para TikTok:", d))
-        .catch(e => console.error("❌ Erro ao enviar conversão:", e));
+        .then(d => console.log("✅ Purchase enviado para TikTok:", d))
+        .catch(e => console.error("❌ Erro no envio:", e));
     })();
   </script>
 
   <!-- Hotmart Tracking -->
   <script>
     var hotmartTag = hotmartTag || [];
-    hotmartTag.push(['_setAccount', 'SEU_ID_HOTMART_AQUI']); // <-- Substituir pelo ID da sua conta Hotmart
+    hotmartTag.push(['_setAccount', 'SEU_ID_HOTMART_AQUI']); 
     hotmartTag.push(['_trackPageview']);
   </script>
   <script async src="https://static.hotmart.com/track.js"></script>
