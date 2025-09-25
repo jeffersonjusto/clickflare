@@ -4,36 +4,77 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pressell - Confirme sua idade</title>
+
+  <!-- Fonte moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
     html, body {
-      height: 100%; margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fff; display: flex;
-      justify-content: center; align-items: center;
-      text-align: center; padding: 20px; box-sizing: border-box;
+      height: 100%;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
     }
-    .container { max-width: 400px; }
-    h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-    h2 { font-size: 1.5rem; margin-bottom: 2rem; }
+
+    .container {
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: #111;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      font-weight: 500;
+      color: #444;
+    }
+
     a#btn-confirm {
-      display: inline-block; padding: 1rem 2rem;
-      background-color: #e63946; color: white;
-      font-weight: bold; font-size: 1.5rem;
-      border-radius: 6px; text-decoration: none;
-      transition: background-color 0.3s ease;
+      display: inline-block;
+      width: 100%;
+      padding: 1rem 2rem;
+      background-color: #ff1e1e;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.4rem;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(255, 30, 30, 0.4);
     }
-    a#btn-confirm:hover { background-color: #d62828; }
+
+    a#btn-confirm:hover {
+      background-color: #e60000;
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(255, 0, 0, 0.5);
+    }
+
     @media (max-width: 600px) {
       h1 { font-size: 2rem; }
-      h2 { font-size: 1.2rem; }
-      a#btn-confirm { font-size: 1.3rem; padding: 1rem 1.5rem; }
+      h2 { font-size: 1.1rem; }
+      a#btn-confirm {
+        font-size: 1.2rem;
+        padding: 1rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>AGUARDE UM MOMENTO</h1>
-    <h2>POR FAVOR, CONFIRME A SUA IDADE 👇👇👇</h2>
+    <h2>POR FAVOR, CONFIRME SUA IDADE 👇</h2>
     <a id="btn-confirm" href="vsl.html">EU TENHO MAIS DE 35</a>
   </div>
 
@@ -43,7 +84,7 @@
       w.TiktokAnalyticsObject = t;
       var ttq = w[t] = w[t] || [];
       ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
-      ttq.setAndDefer = function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
+      ttq.setAndDefer = function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}; 
       for(var i=0;i<ttq.methods.length;i++) ttq.setAndDefer(ttq,ttq.methods[i]);
       ttq.load = function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";
         ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=i;ttq._t=ttq._t||{};ttq._t[e]=+new Date;
