@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pressell - Confirme sua idade</title>
+  <style>
+    html, body {
+      height: 100%; margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff; display: flex;
+      justify-content: center; align-items: center;
+      text-align: center; padding: 20px; box-sizing: border-box;
+    }
+    .container { max-width: 400px; }
+    h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    h2 { font-size: 1.5rem; margin-bottom: 2rem; }
+    a#btn-confirm {
+      display: inline-block; padding: 1rem 2rem;
+      background-color: #e63946; color: white;
+      font-weight: bold; font-size: 1.5rem;
+      border-radius: 6px; text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+    a#btn-confirm:hover { background-color: #d62828; }
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.2rem; }
+      a#btn-confirm { font-size: 1.3rem; padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AGUARDE UM MOMENTO</h1>
+    <h2>POR FAVOR, CONFIRME A SUA IDADE 👇👇👇</h2>
+    <a id="btn-confirm" href="vsl.html">EU TENHO MAIS DE 35</a>
+  </div>
+
+  <!-- TikTok Pixel -->
+  <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject = t;
+      var ttq = w[t] = w[t] || [];
+      ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
+      ttq.setAndDefer = function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
+      for(var i=0;i<ttq.methods.length;i++) ttq.setAndDefer(ttq,ttq.methods[i]);
+      ttq.load = function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";
+        ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=i;ttq._t=ttq._t||{};ttq._t[e]=+new Date;
+        var o=d.createElement("script");o.async=!0;o.src=i+"?sdkid="+e+"&lib="+t;
+        var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+      ttq.load('D0RK96JC77U19I8AVG5G'); ttq.page();
+    }(window, document, 'ttq');
+
+    // Captura e mantém ttclid
+    (function(){
+      const params = new URLSearchParams(window.location.search);
+      const ttclid = params.get("ttclid");
+      if (ttclid) {
+        localStorage.setItem("ttclid", ttclid);
+        document.cookie = "ttclid="+ttclid+"; path=/; max-age="+(60*60*24*30);
+      }
+      // Adiciona ttclid no botão
+      const btn = document.getElementById("btn-confirm");
+      if (btn && ttclid) {
+        btn.href = "vsl.html?ttclid=" + ttclid;
+      }
+    })();
+  </script>
+</body>
+</html>
