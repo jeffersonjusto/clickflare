@@ -1,95 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Obrigado pela sua compra!</title>
-</head>
-<body style="font-family: Arial; text-align: center; padding: 50px;">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vídeo Especial</title>
 
-  <h1>🎉 Obrigado pela sua compra!</h1>
-  <p>Seu pedido foi processado com sucesso.</p>
-  <p>Em instantes você receberá um e-mail com os dados de acesso.</p>
-
-  <!-- TikTok Pixel (somente PageView) -->
-  <script>
-    !function (w, d, t) {
-      w.TiktokAnalyticsObject = t;
-      var ttq = w[t] = w[t] || [];
-      ttq.methods = ["page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie"];
-      ttq.setAndDefer = function (t, e) {
-        t[e] = function () {
-          t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
-      };
-      for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
-      ttq.load = function (e, n) {
-        var i = "https://analytics.tiktok.com/i18n/pixel/events.js";
-        ttq._i = ttq._i || {};
-        ttq._i[e] = [];
-        ttq._i[e]._u = i;
-        ttq._t = ttq._t || {};
-        ttq._t[e] = +new Date;
-        var o = d.createElement("script");
-        o.async = !0;
-        o.src = i + "?sdkid=" + e + "&lib=" + t;
-        var a = d.getElementsByTagName("script")[0];
-        a.parentNode.insertBefore(o, a)
-      };
-      ttq.load('D0RK96JC77U19I8AVG5G'); // <-- Seu Pixel ID
-      ttq.page(); // só registra pageview
-    }(window, document, 'ttq');
-  </script>
 
-  <!-- TikTok Server-Side API -->
-  <script>
-    (function () {
-      const ttclid = localStorage.getItem("ttclid") || (document.cookie.match(/ttclid=([^;]+)/) || [])[1];
-      if (!ttclid) {
-        console.warn("⚠️ Nenhum ttclid encontrado, evento server-side não será enviado.");
-        return;
-      }
+        .container {
+            max-width: 100%;
+            width: 720px;
+            text-align: center;
+            padding: 10px;
+        }
 
-      fetch("https://business-api.tiktokglobalplatform.com/open_api/v1.3/event/track/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Token": "4c0a11ff63a9f90245632bf156a5de4d2f63c937" // <-- Seu token válido
-        },
-        body: JSON.stringify({
-          pixel_code: "D0RK96JC77U19I8AVG5G", // <-- Seu Pixel ID
-          event: "Purchase",
-          context: {
-            ad: { callback: ttclid }
-          },
-          properties: {
-            currency: "BRL",
-            value: 34.00 // <-- Substituir pelo valor dinâmico real
-          }
-        })
-      })
-        .then(r => r.json())
-        .then(d => console.log("✅ Purchase enviado para TikTok:", d))
-        .catch(e => console.error("❌ Erro no envio:", e));
-    })();
-  </script>
+        video {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+        }
 
-  <!-- Hotmart Tracking -->
-  <script>
-    var hotmartTag = hotmartTag || [];
-    hotmartTag.push(['_setAccount', 'SEU_ID_HOTMART_AQUI']); 
-    hotmartTag.push(['_trackPageview']);
-  </script>
-  <script async src="https://static.hotmart.com/track.js"></script>
+        h1 {
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
 
+        p {
+            color: #ccc;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Um momento especial para você</h1>
+
+        <!-- TROCAR o src DO VÍDEO -->
+        <video autoplay loop muted playsinline>
+            <source src="https://www.tiktok.com/@feminilidade.eleg/video/7519878591295802680?q=mulher%20elegante&t=1763388263028" type="video/mp4" />
+        </video>
+
+        <p>Assista por um instante e relaxe.</p>
+    </div>
+
+    <!-- COLOQUE SEU META PIXEL AQUI EMBAIXO -->
+    <!-- Exemplo:
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1590932798982712');
+        fbq('track', 'PageView');
+    </script>
+    -->
 </body>
 </html>
-
-<script>
-  window.pixelId = "69137a428d9f04d3a286d613";
-  var a = document.createElement("script");
-  a.setAttribute("async", "");
-  a.setAttribute("defer", "");
-  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-  document.head.appendChild(a);
-</script>
